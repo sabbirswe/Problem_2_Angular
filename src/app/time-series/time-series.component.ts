@@ -24,18 +24,8 @@ Accessibility(Highcharts);
 })
 export class TimeSeriesComponent implements OnInit {
 
+public reportData:Array<any>=[];  
 
-  //public data= cdata.TimeChartData;
-
-public reportData:Array<any>=[];
-    
-    
-
-
-
-
-
-   
    buildingList?: ISelectList[];
    objectList?: ISelectList[];
    dataFieldList?: ISelectList[];
@@ -44,21 +34,12 @@ public reportData:Array<any>=[];
    buildingId:number=0;
    timeStamp?: Date;
 
-  constructor(private timeSeriesService: TimeSeriesService){
-
-    
-  }
+  constructor(private timeSeriesService: TimeSeriesService){}
 
   ngOnInit(): void {
     this.getData();
-   
-    
-    
+
   }
-
-
-
-
 
   getData(){
     this.timeSeriesService.getTimeSeriesChart().subscribe(res=>{
@@ -75,12 +56,9 @@ public reportData:Array<any>=[];
 
       if(this.timeStamp !=undefined || this.timeStamp!=null){
         this.timeSeriesService.getTimeSeriesChartData(this.dataFieldId,this.objectId,this.dataFieldId,this.timeStamp!).subscribe(res=>{
-      
-      
 
          this.reportData= res.report;
 
-        
          let options: any = {
             chart: {
                zoomType: 'x'
@@ -112,10 +90,7 @@ public reportData:Array<any>=[];
                                     x2: 0,
                                     y2: 1
                                 },
-                                stops: [
-                                   //  [0, Highcharts.getOptions().colors[0]],
-                                   //  [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                ]
+                                stops: [ ]
                             },
                             marker: {
                                 radius: 2
@@ -135,13 +110,7 @@ public reportData:Array<any>=[];
                          data: this.reportData
                     }]
           }
-          Highcharts.chart('container', options);
-      //  this.reportData=res as any;
-          
-          
-
-
-          
+          Highcharts.chart('container', options);       
         }, error => {
           console.log(error);
         });
@@ -149,10 +118,7 @@ public reportData:Array<any>=[];
       }
        else{
         alert("Please Select Datarange");
-       }
-  
-      
-      
+       }  
     }
 
 
